@@ -1,4 +1,6 @@
 .git
+config.local.php
+database*.sql
 .env
 .env.*
 !.env.example
