@@ -1,12 +1,26 @@
 <?php
-require_once __DIR__ . '/db.php';
+function e(?string $value): string
+{
+    return htmlspecialchars($value ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+function is_logged_in(): bool
+{
+    return false;
+}
+
+function is_admin(): bool
+{
+    return false;
+}
+
 $pageTitle = 'Discover the World';
 $activePage = 'home';
-$destinations = $pdo->query('SELECT id, name, country, description, image_url FROM destinations WHERE featured = 1 ORDER BY id LIMIT 3')->fetchAll();
-$packages = $pdo->query('SELECT p.id, p.name, p.duration_days, p.price, d.name AS destination_name FROM packages p JOIN destinations d ON d.id = p.destination_id WHERE p.featured = 1 ORDER BY p.id LIMIT 3')->fetchAll();
-$destinationCount = (int) $pdo->query('SELECT COUNT(*) FROM destinations')->fetchColumn();
-$packageCount = (int) $pdo->query('SELECT COUNT(*) FROM packages')->fetchColumn();
-$bookingCount = (int) $pdo->query('SELECT COUNT(*) FROM bookings')->fetchColumn();
+$destinations = [];
+$packages = [];
+$destinationCount = null;
+$packageCount = null;
+$bookingCount = null;
 require __DIR__ . '/partials/header.php';
 ?>
 <section class="hero">
@@ -84,9 +98,9 @@ require __DIR__ . '/partials/header.php';
 </section>
 
 <section class="stats-section wrap">
-    <div><strong><?= $destinationCount ?>+</strong><span>curated destinations</span></div>
-    <div><strong><?= $packageCount ?>+</strong><span>thoughtful journeys</span></div>
-    <div><strong><?= number_format($bookingCount) ?>+</strong><span>journeys started</span></div>
+    <div><strong><?= $destinationCount === null ? '—' : number_format($destinationCount) . '+' ?></strong><span>curated destinations</span></div>
+    <div><strong><?= $packageCount === null ? '—' : number_format($packageCount) . '+' ?></strong><span>thoughtful journeys</span></div>
+    <div><strong><?= $bookingCount === null ? '—' : number_format($bookingCount) . '+' ?></strong><span>journeys started</span></div>
     <div class="stats-note"><span class="eyebrow">THE BEST SOUVENIR?</span><p>A story you can't wait to tell.</p></div>
 </section>
 
