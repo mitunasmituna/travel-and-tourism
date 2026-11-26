@@ -2,8 +2,6 @@
 $pageTitle = $pageTitle ?? 'Travel & Tourism';
 $activePage = $activePage ?? '';
 $basePath = $basePath ?? '';
-$flashMessage = $_SESSION['flash'] ?? null;
-unset($_SESSION['flash']);
 ?>
 <!doctype html>
 <html lang="en">
@@ -36,22 +34,15 @@ unset($_SESSION['flash']);
             'packages' => ['Packages', 'packages.php'],
             'gallery' => ['Gallery', 'gallery.php'],
             'booking' => ['Booking', 'booking.php'],
+            'my-bookings' => ['My trips', 'my_bookings.php'],
             'contact' => ['Contact', 'contact.php'],
+            'admin' => ['Admin demo', 'admin/index.php'],
         ];
         foreach ($navItems as $key => [$label, $href]):
         ?>
             <a class="<?= $activePage === $key ? 'is-active' : '' ?>" href="<?= e($basePath . $href) ?>"><?= e($label) ?></a>
         <?php endforeach; ?>
-        <?php if (is_logged_in()): ?>
-            <?php if (is_admin()): ?>            <a class="<?= $activePage === 'admin' ? 'is-active' : '' ?>" href="<?= e($basePath) ?>admin/index.php">Admin</a><?php endif; ?>
-            <a class="<?= $activePage === 'my-bookings' ? 'is-active' : '' ?>" href="<?= e($basePath) ?>my_bookings.php">My trips</a>
-            <a class="nav-account" href="<?= e($basePath) ?>logout.php">Log out</a>
-        <?php else: ?>
-            <a class="nav-account <?= $activePage === 'login' ? 'is-active' : '' ?>" href="<?= e($basePath) ?>login.php">Login</a>
-        <?php endif; ?>
+        <a class="nav-account <?= $activePage === 'login' ? 'is-active' : '' ?>" href="<?= e($basePath) ?>login.php">Login</a>
     </nav>
 </header>
 <main>
-<?php if ($flashMessage): ?>
-    <div class="flash-message flash-<?= e($flashMessage['type']) ?>" role="status"><?= e($flashMessage['message']) ?></div>
-<?php endif; ?>

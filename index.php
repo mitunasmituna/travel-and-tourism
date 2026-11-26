@@ -1,25 +1,11 @@
 <?php
-function e(?string $value): string
-{
-    return htmlspecialchars($value ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
-}
-
-function is_logged_in(): bool
-{
-    return false;
-}
-
-function is_admin(): bool
-{
-    return false;
-}
-
+require_once __DIR__ . '/site.php';
 $pageTitle = 'Discover the World';
 $activePage = 'home';
-$destinations = [];
-$packages = [];
-$destinationCount = null;
-$packageCount = null;
+$destinations = array_slice(array_values(array_filter(site_destinations(), static fn (array $destination): bool => (int) $destination['featured'] === 1)), 0, 3);
+$packages = array_slice(array_values(array_filter(site_packages(), static fn (array $package): bool => (int) $package['featured'] === 1)), 0, 3);
+$destinationCount = count(site_destinations());
+$packageCount = count(site_packages());
 $bookingCount = null;
 require __DIR__ . '/partials/header.php';
 ?>

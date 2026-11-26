@@ -13,13 +13,14 @@
             <a href="<?= e($basePath) ?>destinations.php">Destinations</a>
             <a href="<?= e($basePath) ?>packages.php">Travel packages</a>
             <a href="<?= e($basePath) ?>gallery.php">Photo journal</a>
+            <a href="<?= e($basePath) ?>my_bookings.php">My journeys</a>
         </div>
         <div class="footer-links">
             <h3>Plan with us</h3>
             <a href="<?= e($basePath) ?>booking.php">Book a journey</a>
-            <?php if (is_logged_in()): ?><a href="<?= e($basePath) ?>my_bookings.php">My journeys</a><?php endif; ?>
             <a href="<?= e($basePath) ?>contact.php">Get in touch</a>
             <a href="<?= e($basePath) ?>registration.php">Create an account</a>
+            <a href="<?= e($basePath) ?>admin/index.php">Admin preview</a>
         </div>
         <div class="footer-note">
             <span class="eyebrow eyebrow-light">THE WORLD IS WAITING</span>
